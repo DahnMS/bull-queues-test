@@ -1,9 +1,9 @@
 import { Router } from 'express';
 
-import TransactionalRouter from './transactional.routes';
+import logRouter from './log.routes';
 
 const routes = Router();
 
-routes.use('/transactional', TransactionalRouter);
+routes.use('/log', logRouter);
 
 export default routes;
