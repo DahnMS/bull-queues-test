@@ -1,4 +1,6 @@
 import './config/environment';
-import LogQueueService from './services/LogQueueService';
+import logQueueService from './services/LogQueueService';
+import capitalizeQueueService from './services/CapitalizeQueueService';
 
-LogQueueService.process();
+logQueueService.process();
+capitalizeQueueService.process();

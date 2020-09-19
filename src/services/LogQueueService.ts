@@ -1,5 +1,5 @@
 import fs from 'fs';
-import BaseQueue from './BaseQueue';
+import QueueService from './base/QueueService';
 
 interface IJobParamns {
   message: string;
@@ -10,21 +10,16 @@ interface IJob {
   progress: (total: number) => void;
 }
 
-class SendQueue extends BaseQueue<IJobParamns> {
-  constructor() {
-    super('sendMessage');
-  }
-
+class LogQueueService extends QueueService<IJobParamns> {
   handle(job: IJob) {
     const { message } = job.data;
     job.progress(10);
 
     fs.appendFile('log.text', `\n\n${message}`, () => {
+      job.progress(100);
       console.log(`Mensagem adicionada: ${message}`);
     });
-
-    job.progress(100);
   }
 }
 
-export default new SendQueue();
+export default new LogQueueService('logJob');

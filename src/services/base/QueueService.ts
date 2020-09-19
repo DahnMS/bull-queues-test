@@ -1,13 +1,13 @@
 import Queue from 'bull';
 import { setQueues } from 'bull-board';
-import redisConfig from '../config/redis';
+import redisConfig from '../../config/redis';
 
 interface IJob<T> {
   data: T;
   progress: (total: number) => void;
 }
 
-export default abstract class BaseQueue<T> {
+export default abstract class QueueService<T> {
   private queue: Queue.Queue;
 
   constructor(private key: string) {
@@ -25,6 +25,7 @@ export default abstract class BaseQueue<T> {
   }
 
   process(): void {
+    console.log(`Processing Queue: ${this.key}`);
     this.queue.process(this.handle);
   }
 }
